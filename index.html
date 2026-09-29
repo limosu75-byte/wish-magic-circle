@@ -1,1374 +1,512 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#120b24" />
-  <title>沈叙的许愿魔法阵</title>
-
-  <style>
-    :root{
-      --bg1:#090612;
-      --bg2:#17102b;
-      --glass:rgba(255,255,255,.08);
-      --line:rgba(255,255,255,.20);
-      --text:#f7f2ff;
-      --muted:#cfc4df;
-      --glow:#d6b8ff;
-    }
-
-    *{
-      box-sizing:border-box;
-    }
-
-    html,body{
-      margin:0;
-      min-height:100%;
-      font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        "PingFang SC",
-        "Hiragino Sans GB",
-        "Microsoft YaHei",
-        sans-serif;
-
-      color:var(--text);
-    }
-
-    body{
-      min-height:100vh;
-
-      display:flex;
-      align-items:center;
-      justify-content:center;
-
-      padding:24px;
-
-      overflow-x:hidden;
-
-      background:
-        radial-gradient(
-          circle at 50% 25%,
-          rgba(139,92,246,.22),
-          transparent 35%
-        ),
-
-        radial-gradient(
-          circle at 20% 80%,
-          rgba(59,130,246,.13),
-          transparent 30%
-        ),
-
-        linear-gradient(
-          160deg,
-          var(--bg2),
-          var(--bg1) 60%
-        );
-    }
-
-
-    /* 星空背景 */
-
-    .stars,
-    .stars:before,
-    .stars:after{
-
-      position:fixed;
-
-      inset:0;
-
-      pointer-events:none;
-
-      content:"";
-
-      background-image:
-
-        radial-gradient(
-          circle,
-          rgba(255,255,255,.9) 1px,
-          transparent 1.6px
-        ),
-
-        radial-gradient(
-          circle,
-          rgba(255,255,255,.55) 1px,
-          transparent 1.4px
-        );
-
-      background-size:
-        76px 76px,
-        113px 113px;
-
-      background-position:
-        0 0,
-        31px 22px;
-
-      opacity:.18;
-
-      animation:
-        drift 18s linear infinite;
-    }
-
-
-    .stars:before{
-
-      transform:scale(1.25);
-
-      opacity:.10;
-
-      animation-duration:27s;
-    }
-
-
-    .stars:after{
-
-      transform:scale(.8);
-
-      opacity:.12;
-
-      animation-duration:14s;
-    }
-
-
-    @keyframes drift{
-
-      to{
-
-        background-position:
-          0 76px,
-          31px 135px;
-      }
-    }
-
-
-
-    /* 主页面 */
-
-    .wrap{
-
-      width:min(440px,100%);
-
-      position:relative;
-
-      z-index:2;
-    }
-
-
-    .card{
-
-      border:
-        1px solid var(--line);
-
-      border-radius:
-        30px;
-
-      padding:
-        28px 22px 22px;
-
-      background:
-        linear-gradient(
-          180deg,
-          rgba(255,255,255,.10),
-          rgba(255,255,255,.055)
-        );
-
-      box-shadow:
-
-        0 20px 80px
-        rgba(0,0,0,.38),
-
-        inset 0 1px 0
-        rgba(255,255,255,.11);
-
-      backdrop-filter:
-        blur(18px);
-
-      -webkit-backdrop-filter:
-        blur(18px);
-    }
-
-
-    h1{
-
-      font-size:
-        24px;
-
-      margin:
-        4px 0 4px;
-
-      text-align:center;
-
-      letter-spacing:
-        .04em;
-    }
-
-
-    .sub{
-
-      text-align:center;
-
-      color:
-        var(--muted);
-
-      font-size:
-        13px;
-
-      margin-bottom:
-        18px;
-    }
-
-
-
-    /* 魔法阵 */
-
-    .circle-wrap{
-
-      display:grid;
-
-      place-items:center;
-
-      margin:
-        8px 0 20px;
-
-      min-height:
-        240px;
-    }
-
-
-    .circle{
-
-      width:
-        220px;
-
-      height:
-        220px;
-
-      border-radius:
-        50%;
-
-      border:
-        1px solid rgba(255,255,255,.40);
-
-      position:
-        relative;
-
-      display:grid;
-
-      place-items:center;
-
-      box-shadow:
-
-        0 0 35px
-        rgba(191,156,255,.28),
-
-        inset 0 0 35px
-        rgba(191,156,255,.12);
-
-      transition:
-        .4s ease;
-    }
-
-
-    .circle:before,
-    .circle:after{
-
-      content:"";
-
-      position:absolute;
-
-      border-radius:
-        50%;
-
-      border:
-        1px solid rgba(255,255,255,.22);
-    }
-
-
-    .circle:before{
-
-      inset:
-        15px;
-    }
-
-
-    .circle:after{
-
-      inset:
-        33px;
-
-      border-style:
-        dashed;
-    }
-
-
-
-    .ring{
-
-      position:absolute;
-
-      inset:
-        -10px;
-
-      border-radius:
-        50%;
-
-      border:
-        1px dashed rgba(213,190,255,.44);
-
-      animation:
-        spin 13s linear infinite;
-    }
-
-
-    .ring2{
-
-      position:absolute;
-
-      inset:
-        28px;
-
-      border-radius:
-        50%;
-
-      border:
-        1px solid rgba(213,190,255,.18);
-
-      animation:
-        spinBack 9s linear infinite;
-    }
-
-
-    @keyframes spin{
-
-      to{
-
-        transform:
-          rotate(360deg);
-      }
-    }
-
-
-    @keyframes spinBack{
-
-      to{
-
-        transform:
-          rotate(-360deg);
-      }
-    }
-
-
-    .sigil{
-
-      font-size:
-        52px;
-
-      text-shadow:
-
-        0 0 18px
-        var(--glow),
-
-        0 0 38px
-        rgba(214,184,255,.4);
-
-      animation:
-        pulse 2.3s ease-in-out infinite;
-    }
-
-
-    @keyframes pulse{
-
-      50%{
-
-        transform:
-          scale(1.08);
-
-        filter:
-          brightness(1.2);
-      }
-    }
-
-
-
-    .orbit{
-
-      position:absolute;
-
-      inset:0;
-
-      animation:
-        spin 8s linear infinite;
-    }
-
-
-    .orbit span{
-
-      position:absolute;
-
-      font-size:
-        18px;
-    }
-
-
-    .orbit span:nth-child(1){
-
-      left:
-        50%;
-
-      top:
-        -10px;
-
-      transform:
-        translateX(-50%);
-    }
-
-
-    .orbit span:nth-child(2){
-
-      right:
-        -8px;
-
-      top:
-        50%;
-
-      transform:
-        translateY(-50%);
-    }
-
-
-    .orbit span:nth-child(3){
-
-      left:
-        50%;
-
-      bottom:
-        -10px;
-
-      transform:
-        translateX(-50%);
-    }
-
-
-    .orbit span:nth-child(4){
-
-      left:
-        -8px;
-
-      top:
-        50%;
-
-      transform:
-        translateY(-50%);
-    }
-
-
-
-    /* 输入区 */
-
-    .field{
-
-      display:flex;
-
-      gap:
-        10px;
-
-      margin:
-        4px 0 12px;
-    }
-
-
-    input{
-
-      flex:
-        1;
-
-      min-width:
-        0;
-
-      padding:
-        14px 15px;
-
-      border-radius:
-        16px;
-
-      border:
-        1px solid rgba(255,255,255,.16);
-
-      background:
-        rgba(0,0,0,.18);
-
-      color:
-        white;
-
-      font-size:
-        16px;
-
-      outline:
-        none;
-    }
-
-
-    input::placeholder{
-
-      color:
-        #9f95ae;
-    }
-
-
-    input:focus{
-
-      border-color:
-        rgba(214,184,255,.6);
-
-      box-shadow:
-        0 0 0 3px
-        rgba(214,184,255,.08);
-    }
-
-
-
-    button{
-
-      border:
-        0;
-
-      border-radius:
-        16px;
-
-      padding:
-        14px 18px;
-
-      font-size:
-        15px;
-
-      font-weight:
-        700;
-
-      cursor:
-        pointer;
-
-      background:
-        linear-gradient(
-          180deg,
-          #fff,
-          #e9ddff
-        );
-
-      color:
-        #211631;
-
-      box-shadow:
-        0 8px 25px
-        rgba(0,0,0,.22);
-    }
-
-
-    button:active{
-
-      transform:
-        scale(.98);
-    }
-
-
-
-    /* 状态框 */
-
-    .status{
-
-      min-height:
-        88px;
-
-      border-radius:
-        18px;
-
-      padding:
-        14px 15px;
-
-      background:
-        rgba(255,255,255,.05);
-
-      border:
-        1px solid rgba(255,255,255,.09);
-
-      font-size:
-        14px;
-
-      line-height:
-        1.7;
-
-      color:
-        #ece5f7;
-    }
-
-
-    .status strong{
-
-      font-size:
-        17px;
-
-      color:
-        white;
-    }
-
-
-
-    .tiny{
-
-      font-size:
-        12px;
-
-      color:
-        #a9a0b7;
-
-      margin-top:
-        12px;
-
-      text-align:
-        center;
-    }
-
-
-
-    /* 愿望记录 */
-
-    .history{
-
-      margin-top:
-        16px;
-    }
-
-
-    .history-title{
-
-      font-size:
-        13px;
-
-      color:
-        #cfc4df;
-
-      margin-bottom:
-        8px;
-    }
-
-
-    .wish-item{
-
-      padding:
-        10px 12px;
-
-      border-radius:
-        14px;
-
-      background:
-        rgba(255,255,255,.045);
-
-      border:
-        1px solid rgba(255,255,255,.07);
-
-      margin-top:
-        8px;
-
-      font-size:
-        13px;
-
-      color:
-        #e8e1f2;
-    }
-
-
-    .wish-item small{
-
-      display:block;
-
-      color:
-        #9f95ae;
-
-      margin-top:
-        4px;
-    }
-
-
-    .clear{
-
-      display:block;
-
-      margin:
-        10px auto 0;
-
-      background:
-        transparent;
-
-      color:
-        #aaa;
-
-      border:
-        0;
-
-      box-shadow:
-        none;
-
-      padding:
-        6px 10px;
-
-      font-size:
-        12px;
-    }
-
-
-
-    /* 施法状态 */
-
-    .casting .circle{
-
-      box-shadow:
-
-        0 0 55px
-        rgba(214,184,255,.65),
-
-        inset 0 0 40px
-        rgba(214,184,255,.22);
-
-      transform:
-        scale(1.02);
-    }
-
-
-
-    /* 粒子 */
-
-    .spark{
-
-      position:
-        fixed;
-
-      width:
-        6px;
-
-      height:
-        6px;
-
-      border-radius:
-        50%;
-
-      background:
-        white;
-
-      pointer-events:
-        none;
-
-      z-index:
-        10;
-
-      box-shadow:
-
-        0 0 12px white,
-
-        0 0 24px
-        rgba(214,184,255,.8);
-
-      animation:
-        fly 1.4s ease-out forwards;
-    }
-
-
-    @keyframes fly{
-
-      from{
-
-        transform:
-          translate(0,0) scale(1);
-
-        opacity:
-          1;
-      }
-
-      to{
-
-        transform:
-          translate(var(--x),var(--y)) scale(0);
-
-        opacity:
-          0;
-      }
-    }
-
-
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#120b24" />
+<title>沈叙的许愿魔法阵 · v2</title>
+<style>
+:root{
+  --bg1:#080611;
+  --bg2:#17102d;
+  --card:rgba(255,255,255,.075);
+  --line:rgba(255,255,255,.17);
+  --text:#f8f5ff;
+  --muted:#c7bfd5;
+  --accent:#d9c1ff;
+  --accent2:#9f7aea;
+  --accent3:#78a8ff;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;color:var(--text)}
+body{
+  min-height:100vh;
+  padding:calc(18px + env(safe-area-inset-top)) 16px calc(26px + env(safe-area-inset-bottom));
+  overflow-x:hidden;
+  background:
+    radial-gradient(circle at 50% 8%, rgba(155,114,255,.25), transparent 28%),
+    radial-gradient(circle at 20% 75%, rgba(95,150,255,.16), transparent 28%),
+    radial-gradient(circle at 88% 55%, rgba(234,157,255,.10), transparent 24%),
+    linear-gradient(155deg,var(--bg2),var(--bg1) 64%);
+}
+body::before{
+  content:"";
+  position:fixed; inset:0; pointer-events:none;
+  background-image:
+    radial-gradient(circle,rgba(255,255,255,.86) 1px,transparent 1.5px),
+    radial-gradient(circle,rgba(255,255,255,.42) 1px,transparent 1.6px);
+  background-size:74px 74px,119px 119px;
+  background-position:0 0,33px 27px;
+  opacity:.15;
+  animation:skyDrift 24s linear infinite;
+}
+@keyframes skyDrift{to{background-position:0 74px,33px 146px}}
+
+.app{width:min(480px,100%);margin:auto;position:relative;z-index:2}
+.header{text-align:center;margin:4px 0 14px}
+.header h1{margin:0;font-size:25px;letter-spacing:.04em}
+.header .sub{font-size:12px;color:var(--muted);margin-top:5px}
+
+.panel{
+  border:1px solid var(--line);
+  border-radius:28px;
+  background:linear-gradient(180deg,rgba(255,255,255,.095),rgba(255,255,255,.045));
+  box-shadow:0 22px 70px rgba(0,0,0,.36),inset 0 1px 0 rgba(255,255,255,.10);
+  backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);
+  padding:20px;
+}
+
+.category-row{
+  display:flex; gap:8px; overflow-x:auto; scrollbar-width:none;
+  padding:2px 0 12px;
+}
+.category-row::-webkit-scrollbar{display:none}
+.cat{
+  flex:0 0 auto;border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.055); color:#ded7e9; box-shadow:none;
+  border-radius:999px; padding:9px 13px; font-size:13px; font-weight:600;
+}
+.cat.active{
+  color:#21182d;
+  background:linear-gradient(180deg,#fff,#eadfff);
+  border-color:transparent;
+}
+
+.magic-zone{display:grid;place-items:center;min-height:280px;position:relative}
+.circle{
+  width:238px;height:238px;border-radius:50%;position:relative;display:grid;place-items:center;
+  border:1px solid rgba(255,255,255,.40);
+  box-shadow:0 0 38px rgba(207,174,255,.26),inset 0 0 42px rgba(201,164,255,.12);
+  transition:.45s ease;
+}
+.circle::before,.circle::after{
+  content:"";position:absolute;border-radius:50%;
+  border:1px solid rgba(255,255,255,.20);
+}
+.circle::before{inset:18px}
+.circle::after{inset:40px;border-style:dashed;animation:spin 13s linear infinite}
+.ring-a,.ring-b,.ring-c{position:absolute;border-radius:50%;pointer-events:none}
+.ring-a{inset:-11px;border:1px dashed rgba(227,207,255,.50);animation:spin 16s linear infinite}
+.ring-b{inset:29px;border:1px solid rgba(255,255,255,.12);animation:spinBack 10s linear infinite}
+.ring-c{inset:58px;border:1px dotted rgba(255,255,255,.22);animation:spin 7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes spinBack{to{transform:rotate(-360deg)}}
+
+.sigil{
+  font-size:58px; z-index:2;
+  text-shadow:0 0 16px #fff,0 0 36px var(--accent),0 0 70px rgba(205,172,255,.32);
+  animation:breathe 2.4s ease-in-out infinite;
+}
+@keyframes breathe{50%{transform:scale(1.09);filter:brightness(1.25)}}
+
+.orbit{position:absolute;inset:0;animation:spin 9s linear infinite}
+.orbit span{position:absolute;font-size:18px;text-shadow:0 0 12px #fff}
+.orbit span:nth-child(1){left:50%;top:-10px;transform:translateX(-50%)}
+.orbit span:nth-child(2){right:-8px;top:50%;transform:translateY(-50%)}
+.orbit span:nth-child(3){left:50%;bottom:-10px;transform:translateX(-50%)}
+.orbit span:nth-child(4){left:-8px;top:50%;transform:translateY(-50%)}
+
+.rune{
+  position:absolute;font-size:12px;color:rgba(240,229,255,.78);
+  letter-spacing:.2em;text-transform:uppercase;
+}
+.rune.r1{top:18px}
+.rune.r2{bottom:18px;transform:rotate(180deg)}
+
+.field{display:flex;gap:10px;margin-top:2px}
+input{
+  width:100%; min-width:0; border-radius:16px;
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(0,0,0,.18); color:white; outline:none;
+  padding:14px 14px; font-size:16px;
+}
+input:focus{border-color:rgba(218,190,255,.65);box-shadow:0 0 0 3px rgba(218,190,255,.08)}
+input::placeholder{color:#9f97ab}
+.cast{
+  flex:0 0 auto;border:0;border-radius:16px;padding:13px 18px;
+  background:linear-gradient(180deg,#fff,#eadfff); color:#22182f;
+  font-weight:800;font-size:15px;box-shadow:0 8px 22px rgba(0,0,0,.24);
+}
+.cast:active{transform:scale(.98)}
+
+.status{
+  margin-top:12px; min-height:100px; border-radius:18px;
+  background:rgba(255,255,255,.045); border:1px solid rgba(255,255,255,.08);
+  padding:15px; line-height:1.7; color:#eee8f7; font-size:14px;
+}
+.status strong{font-size:18px;color:white}
+.fortune{margin-top:7px;color:#d9caff;font-size:13px}
+
+.stats{
+  display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px
+}
+.stat{
+  padding:11px 12px;border-radius:15px;
+  border:1px solid rgba(255,255,255,.07);
+  background:rgba(255,255,255,.035);
+}
+.stat b{display:block;font-size:18px}
+.stat span{font-size:11px;color:#aaa1b6}
+
+.history{margin-top:18px}
+.history-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px}
+.history-title{font-size:13px;color:#d6cee0}
+.small-btn{
+  border:0;background:transparent;color:#aaa1b6;box-shadow:none;
+  font-size:12px;padding:5px 7px;border-radius:8px
+}
+.wish-item{
+  position:relative;padding:11px 42px 11px 12px;border-radius:15px;
+  background:rgba(255,255,255,.042);border:1px solid rgba(255,255,255,.065);
+  margin-top:8px;font-size:13px;color:#e9e3f2
+}
+.wish-item small{display:block;margin-top:4px;color:#9e95aa}
+.wish-item .tag{display:inline-block;font-size:10px;color:#d9caff;margin-bottom:3px}
+.del{
+  position:absolute;right:8px;top:50%;transform:translateY(-50%);
+  border:0;background:transparent;color:#948aa1;padding:7px;box-shadow:none;font-size:15px
+}
+.footer{text-align:center;font-size:11px;color:#9f97aa;margin-top:14px}
+
+.casting .circle{
+  transform:scale(1.035);
+  box-shadow:0 0 60px rgba(214,184,255,.72),inset 0 0 52px rgba(214,184,255,.25);
+}
+.flash{
+  position:fixed;inset:0;pointer-events:none;z-index:40;
+  background:radial-gradient(circle at center,rgba(255,255,255,.42),transparent 35%);
+  opacity:0;animation:flash .9s ease-out forwards
+}
+@keyframes flash{0%{opacity:0}25%{opacity:1}100%{opacity:0}}
+
+.spark{
+  position:fixed;width:6px;height:6px;border-radius:50%;
+  background:white;pointer-events:none;z-index:50;
+  box-shadow:0 0 12px #fff,0 0 25px var(--accent);
+  animation:sparkFly 1.5s cubic-bezier(.15,.7,.2,1) forwards
+}
+@keyframes sparkFly{
+  from{transform:translate(0,0) scale(1);opacity:1}
+  to{transform:translate(var(--x),var(--y)) scale(0);opacity:0}
+}
+
+.shooting{
+  position:fixed;width:2px;height:2px;background:white;border-radius:50%;
+  z-index:1;pointer-events:none;opacity:0;
+  box-shadow:0 0 8px 2px white;
+  animation:shoot 1.2s linear forwards
+}
+.shooting::after{
+  content:"";position:absolute;width:95px;height:1px;right:0;top:0;
+  background:linear-gradient(to left,rgba(255,255,255,.85),transparent)
+}
+@keyframes shoot{
+  0%{opacity:0;transform:translate(0,0) rotate(-25deg)}
+  12%{opacity:1}
+  100%{opacity:0;transform:translate(-220px,140px) rotate(-25deg)}
+}
+
+.ripple{
+  position:absolute;width:20px;height:20px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.55);pointer-events:none;
+  animation:ripple 1.4s ease-out forwards
+}
+@keyframes ripple{
+  from{transform:scale(1);opacity:1}
+  to{transform:scale(13);opacity:0}
+}
+
+@media (max-width:380px){
+  .circle{width:215px;height:215px}
+  .field{gap:8px}
+  .cast{padding:13px 15px}
+}
+</style>
 </head>
-
-
 <body>
-
-
-<div class="stars"></div>
-
-
-<div class="wrap">
-
-
-  <div class="card" id="card">
-
-
-    <h1>
-      ✦ 许愿魔法阵 ✦
-    </h1>
-
-
-    <div class="sub">
-
-      想许什么就写什么。
-
-      每次点下去，都算一次正式施法。
-
-    </div>
-
-
-
-    <div class="circle-wrap">
-
-
-      <div class="circle" id="circle">
-
-
-        <div class="ring"></div>
-
-        <div class="ring2"></div>
-
-
-        <div class="orbit">
-
-          <span>✦</span>
-
-          <span>✧</span>
-
-          <span>✦</span>
-
-          <span>✧</span>
-
-        </div>
-
-
-        <div class="sigil">
-
-          ✶
-
-        </div>
-
-
-      </div>
-
-
-    </div>
-
-
-
-    <div class="field">
-
-
-      <input
-        id="wish"
-        maxlength="80"
-        placeholder="例如：HAN · AB组 · 末场 · 观礼中选"
-      />
-
-
-      <button id="cast">
-
-        施法
-
-      </button>
-
-
-    </div>
-
-
-
-    <div
-      class="status"
-      id="status"
-    >
-
-      魔法阵待机中。
-
-      <br>
-
-      写下愿望，然后按「施法」。
-
-    </div>
-
-
-
-    <div
-      class="history"
-      id="historyWrap"
-    >
-
-
-      <div class="history-title">
-
-        最近封印的愿望
-
-      </div>
-
-
-      <div id="history"></div>
-
-
-      <button
-        class="clear"
-        id="clear"
-      >
-
-        清空记录
-
-      </button>
-
-
-    </div>
-
-
-    <div class="tiny">
-
-      纯玄学小页面，不连接任何真实应募系统。
-
-    </div>
-
-
+<div class="app">
+  <div class="header">
+    <h1>✦ 沈叙的许愿魔法阵 ✦</h1>
+    <div class="sub">应募、考试、抢票、旅行、好运……都可以许。</div>
   </div>
 
+  <div class="panel" id="panel">
+    <div class="category-row" id="categories">
+      <button class="cat active" data-cat="应募">🎫 应募</button>
+      <button class="cat" data-cat="考试">📚 考试</button>
+      <button class="cat" data-cat="抢票">🎟️ 抢票</button>
+      <button class="cat" data-cat="旅行">✈️ 旅行</button>
+      <button class="cat" data-cat="好运">✨ 好运</button>
+      <button class="cat" data-cat="其他">🌙 其他</button>
+    </div>
 
+    <div class="magic-zone" id="magicZone">
+      <div class="circle" id="circle">
+        <div class="ring-a"></div>
+        <div class="ring-b"></div>
+        <div class="ring-c"></div>
+        <div class="orbit">
+          <span>✦</span><span>✧</span><span>✦</span><span>✧</span>
+        </div>
+        <div class="rune r1">wish · seal · luck</div>
+        <div class="rune r2">wish · seal · luck</div>
+        <div class="sigil" id="sigil">✶</div>
+      </div>
+    </div>
+
+    <div class="field">
+      <input id="wish" maxlength="100" placeholder="写下你的愿望…" />
+      <button class="cast" id="cast">施法</button>
+    </div>
+
+    <div class="status" id="status">
+      魔法阵待机中。<br>写下愿望，选一个类型，然后按「施法」。
+    </div>
+
+    <div class="stats">
+      <div class="stat"><b id="count">0</b><span>累计封印愿望</span></div>
+      <div class="stat"><b id="streak">0</b><span>连续施法天数</span></div>
+    </div>
+
+    <div class="history">
+      <div class="history-head">
+        <div class="history-title">最近封印的愿望</div>
+        <button class="small-btn" id="clear">清空</button>
+      </div>
+      <div id="history"></div>
+    </div>
+
+    <div class="footer">纯玄学小页面 · 不连接任何真实系统 · 愿望记录只保存在你的浏览器里</div>
+  </div>
 </div>
 
-
 <script>
-
-
-const wishInput =
-  document.getElementById("wish");
-
-
-const castBtn =
-  document.getElementById("cast");
-
-
-const statusBox =
-  document.getElementById("status");
-
-
-const card =
-  document.getElementById("card");
-
-
-const historyBox =
-  document.getElementById("history");
-
-
-const clearBtn =
-  document.getElementById("clear");
-
-
-
-const steps = [
-
-  "正在连接命运节点……",
-
-  "正在绕过焦虑与坏运气……",
-
-  "正在注入第一次应募保护……",
-
-  "正在锁定愿望坐标……",
-
-  "正在封印结果……"
-
-];
-
-
-
-function sleep(ms){
-
-  return new Promise(
-
-    resolve =>
-      setTimeout(resolve, ms)
-
-  );
-
-}
-
-
-
-function sparkBurst(){
-
-  const rect =
-    document
-      .getElementById("circle")
-      .getBoundingClientRect();
-
-
-  const cx =
-    rect.left +
-    rect.width / 2;
-
-
-  const cy =
-    rect.top +
-    rect.height / 2;
-
-
-  for(
-    let i = 0;
-    i < 28;
-    i++
-  ){
-
-    const spark =
-      document.createElement("div");
-
-
-    spark.className =
-      "spark";
-
-
-    spark.style.left =
-      cx + "px";
-
-
-    spark.style.top =
-      cy + "px";
-
-
-    const angle =
-      Math.random() *
-      Math.PI *
-      2;
-
-
-    const distance =
-      70 +
-      Math.random() *
-      160;
-
-
-    spark.style.setProperty(
-
-      "--x",
-
-      Math.cos(angle) *
-      distance +
-      "px"
-
-    );
-
-
-    spark.style.setProperty(
-
-      "--y",
-
-      Math.sin(angle) *
-      distance +
-      "px"
-
-    );
-
-
-    document.body.appendChild(
-      spark
-    );
-
-
-    setTimeout(
-
-      () => spark.remove(),
-
-      1500
-
-    );
-
+const panel = document.getElementById("panel");
+const circle = document.getElementById("circle");
+const magicZone = document.getElementById("magicZone");
+const wishInput = document.getElementById("wish");
+const castBtn = document.getElementById("cast");
+const statusBox = document.getElementById("status");
+const historyBox = document.getElementById("history");
+const clearBtn = document.getElementById("clear");
+const countBox = document.getElementById("count");
+const streakBox = document.getElementById("streak");
+const cats = [...document.querySelectorAll(".cat")];
+
+let currentCat = "应募";
+
+const categoryConfig = {
+  "应募": { accent:"#d9c1ff", sigil:"✶", lines:["中选运正在靠近。","名额会找到它该去的人。","这一次，愿望向前一步。"] },
+  "考试": { accent:"#a9d7ff", sigil:"✦", lines:["会的都考，蒙的都对。","记忆正在回到正确的位置。","好运和实力同时上线。"] },
+  "抢票": { accent:"#ffd0ee", sigil:"✧", lines:["刷新顺利，手速在线。","座位正在向你靠近。","卡顿退散，票务放行。"] },
+  "旅行": { accent:"#9ff3df", sigil:"✺", lines:["一路顺风，天气配合。","好风景会在前面等你。","行程顺利，意外都是惊喜。"] },
+  "好运": { accent:"#ffe4a6", sigil:"✹", lines:["今天会有一点偏爱。","好运正在偷偷加码。","愿望不急，它正在来。"] },
+  "其他": { accent:"#d4b7ff", sigil:"☾", lines:["愿望已被好好收下。","答案会在合适的时候出现。","先封印，剩下的交给时间。"] }
+};
+
+function sleep(ms){ return new Promise(r=>setTimeout(r,ms)); }
+function esc(s){ return s.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c])); }
+
+cats.forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    cats.forEach(x=>x.classList.remove("active"));
+    btn.classList.add("active");
+    currentCat = btn.dataset.cat;
+    const cfg = categoryConfig[currentCat];
+    document.documentElement.style.setProperty("--accent", cfg.accent);
+    document.getElementById("sigil").textContent = cfg.sigil;
+  });
+});
+
+function burst(){
+  const rect = circle.getBoundingClientRect();
+  const cx = rect.left + rect.width/2;
+  const cy = rect.top + rect.height/2;
+
+  const flash = document.createElement("div");
+  flash.className = "flash";
+  document.body.appendChild(flash);
+  setTimeout(()=>flash.remove(),1000);
+
+  const ripple = document.createElement("div");
+  ripple.className = "ripple";
+  ripple.style.left = rect.width/2 - 10 + "px";
+  ripple.style.top = rect.height/2 - 10 + "px";
+  magicZone.appendChild(ripple);
+  setTimeout(()=>ripple.remove(),1500);
+
+  for(let i=0;i<40;i++){
+    const s = document.createElement("div");
+    s.className = "spark";
+    s.style.left = cx+"px";
+    s.style.top = cy+"px";
+    const a = Math.random()*Math.PI*2;
+    const d = 80 + Math.random()*210;
+    s.style.setProperty("--x", Math.cos(a)*d+"px");
+    s.style.setProperty("--y", Math.sin(a)*d+"px");
+    document.body.appendChild(s);
+    setTimeout(()=>s.remove(),1600);
   }
 
+  for(let i=0;i<4;i++){
+    setTimeout(()=>{
+      const star = document.createElement("div");
+      star.className = "shooting";
+      star.style.left = (60 + Math.random()*window.innerWidth) + "px";
+      star.style.top = (20 + Math.random()*window.innerHeight*.35) + "px";
+      document.body.appendChild(star);
+      setTimeout(()=>star.remove(),1300);
+    }, i*180);
+  }
 }
 
+function getItems(){
+  return JSON.parse(localStorage.getItem("wishHistoryV2") || "[]");
+}
+function saveItems(items){
+  localStorage.setItem("wishHistoryV2",JSON.stringify(items.slice(0,50)));
+}
+function formatTime(date=new Date()){
+  return date.toLocaleString("zh-CN",{hour12:false});
+}
+function updateStreak(){
+  const key = "wishDays";
+  const days = JSON.parse(localStorage.getItem(key)||"[]");
+  const today = new Date().toISOString().slice(0,10);
+  if(!days.includes(today)){
+    days.push(today);
+    localStorage.setItem(key,JSON.stringify(days.slice(-60)));
+  }
 
+  const sorted = [...new Set(days)].sort();
+  let streak = 0;
+  let d = new Date();
 
-function loadHistory(){
+  for(let i=0;i<60;i++){
+    const k = d.toISOString().slice(0,10);
 
-  const items =
-    JSON.parse(
-      localStorage.getItem(
-        "wishHistory"
-      ) || "[]"
-    );
+    if(sorted.includes(k)){
+      streak++;
+      d.setDate(d.getDate()-1);
+    } else {
+      break;
+    }
+  }
 
+  streakBox.textContent = streak;
+}
 
-  historyBox.innerHTML =
-    "";
+function render(){
+  const items = getItems();
 
+  countBox.textContent = items.length;
+  historyBox.innerHTML = "";
 
   if(!items.length){
-
-    historyBox.innerHTML =
-      `
-      <div class="wish-item">
-        还没有记录。
-      </div>
-      `;
-
+    historyBox.innerHTML = '<div class="wish-item">还没有愿望记录。</div>';
     return;
-
   }
 
-
-  items
-    .slice(0,5)
-    .forEach(item => {
-
-      const div =
-        document.createElement(
-          "div"
-        );
-
-
-      div.className =
-        "wish-item";
-
-
-      div.innerHTML =
-        `
-        ${escapeHtml(item.text)}
-
-        <small>
-
-          ${item.time}
-
-        </small>
-        `;
-
-
-      historyBox.appendChild(
-        div
-      );
-
-    });
-
-}
-
-
-
-function escapeHtml(text){
-
-  return text.replace(
-
-    /[&<>"']/g,
-
-    character => ({
-
-      "&":"&amp;",
-
-      "<":"&lt;",
-
-      ">":"&gt;",
-
-      '"':"&quot;",
-
-      "'":"&#039;"
-
-    }[character])
-
-  );
-
-}
-
-
-
-function saveWish(text){
-
-  const items =
-    JSON.parse(
-      localStorage.getItem(
-        "wishHistory"
-      ) || "[]"
-    );
-
-
-  items.unshift({
-
-    text:text,
-
-    time:
-      new Date()
-        .toLocaleString()
-
-  });
-
-
-  localStorage.setItem(
-
-    "wishHistory",
-
-    JSON.stringify(
-      items.slice(0,20)
-    )
-
-  );
-
-
-  loadHistory();
-
-}
-
-
-
-async function castSpell(){
-
-  const wish =
-    wishInput.value.trim();
-
-
-  if(!wish){
-
-    statusBox.innerHTML =
-      `
-      先写愿望啦。
-
-      <br>
-
-      魔法阵不能对着空气乱施法。
-      `;
-
-
-    wishInput.focus();
-
-
-    return;
-
-  }
-
-
-  castBtn.disabled =
-    true;
-
-
-  card.classList.add(
-    "casting"
-  );
-
-
-  for(
-    const step
-    of steps
-  ){
-
-    statusBox.innerHTML =
-      step;
-
-
-    await sleep(
-      650
-    );
-
-  }
-
-
-  sparkBurst();
-
-
-  statusBox.innerHTML =
-    `
-    <strong>
-
-      ✦ 愿望已封印 ✦
-
-    </strong>
-
-    <br>
-
-    「${escapeHtml(wish)}」
-
-    <br>
-
-    今日施法完成。
-
-    剩下的交给好运。
+  items.slice(0,8).forEach((item,idx)=>{
+    const div = document.createElement("div");
+
+    div.className = "wish-item";
+
+    div.innerHTML = `
+      <span class="tag">${esc(item.cat)}</span>
+      ${esc(item.text)}
+      <small>${esc(item.time)}</small>
+      <button class="del" aria-label="删除">×</button>
     `;
 
+    div.querySelector(".del").addEventListener("click",()=>{
+      const all = getItems();
 
-  saveWish(
-    wish
-  );
+      all.splice(idx,1);
 
+      saveItems(all);
+      render();
+    });
 
-  card.classList.remove(
-    "casting"
-  );
-
-
-  castBtn.disabled =
-    false;
-
+    historyBox.appendChild(div);
+  });
 }
 
+async function castSpell(){
+  const wish = wishInput.value.trim();
 
-
-castBtn.addEventListener(
-
-  "click",
-
-  castSpell
-
-);
-
-
-
-wishInput.addEventListener(
-
-  "keydown",
-
-  event => {
-
-    if(
-      event.key ===
-      "Enter"
-    ){
-
-      castSpell();
-
-    }
-
+  if(!wish){
+    statusBox.innerHTML = "先写愿望啦。<br>魔法阵不能对着空气乱施法。";
+    wishInput.focus();
+    return;
   }
 
-);
+  castBtn.disabled = true;
+  panel.classList.add("casting");
 
+  const steps = [
+    "正在读取愿望坐标……",
+    `正在连接「${currentCat}」命运节点……`,
+    "正在清理坏运气与多余焦虑……",
+    "正在注入一点偏爱……",
+    "正在封印愿望……"
+  ];
 
-
-clearBtn.addEventListener(
-
-  "click",
-
-  () => {
-
-    localStorage.removeItem(
-      "wishHistory"
-    );
-
-
-    loadHistory();
-
+  for(const s of steps){
+    statusBox.innerHTML = s;
+    await sleep(520);
   }
 
-);
+  burst();
 
+  const cfg = categoryConfig[currentCat];
 
+  const line =
+    cfg.lines[
+      Math.floor(
+        Math.random() * cfg.lines.length
+      )
+    ];
 
-wishInput.value =
-  "HAN · AB组 · 末场 · 观礼中选";
+  statusBox.innerHTML = `
+    <strong>✦ 愿望已封印 ✦</strong><br>
+    「${esc(wish)}」
+    <div class="fortune">${esc(line)}</div>
+  `;
 
+  const items = getItems();
 
-loadHistory();
+  items.unshift({
+    text:wish,
+    cat:currentCat,
+    time:formatTime()
+  });
 
+  saveItems(items);
+  updateStreak();
+  render();
 
+  panel.classList.remove("casting");
+  castBtn.disabled = false;
+}
+
+castBtn.addEventListener("click",castSpell);
+
+wishInput.addEventListener("keydown",e=>{
+  if(e.key==="Enter"){
+    castSpell();
+  }
+});
+
+clearBtn.addEventListener("click",()=>{
+  localStorage.removeItem("wishHistoryV2");
+  render();
+});
+
+wishInput.value = "HAN · AB组 · 末场 · 观礼中选";
+
+updateStreak();
+render();
 </script>
-
-
 </body>
 </html>
